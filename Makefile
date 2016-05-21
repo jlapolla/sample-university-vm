@@ -2,14 +2,18 @@
 vagrant/setup-files.tar.gz: $(shell find setup-files/ -type f)
 	tar -czf vagrant/setup-files.tar.gz setup-files/
 
+# Provisioning script
+vagrant/provision.sh: provision.sh
+	cp provision.sh vagrant/provision.sh
+
 # Prepare for Vagrant VM provisioning
 .PHONY: all
-all: vagrant/setup-files.tar.gz
+all: vagrant/provision.sh vagrant/setup-files.tar.gz
 
 # Clean built files
 .PHONY: clean
 clean:
-	rm -f vagrant/setup-files.tar.gz
+	rm -f vagrant/provision.sh vagrant/setup-files.tar.gz
 
 # Help documentation
 .PHONY: help

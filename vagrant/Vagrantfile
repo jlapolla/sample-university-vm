@@ -24,6 +24,13 @@ Vagrant.configure(2) do |config|
 
     # Quit checking for updates all the time
     config.vm.box_check_update = false
+
+    # Run provision script to start provisioning system
+    # https://www.vagrantup.com/docs/provisioning/shell.html
+    config.vm.provision "shell",
+      name: "setup",
+      inline: "/vagrant/provision.sh",
+      privileged: false
   end
 end
 
