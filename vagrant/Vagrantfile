@@ -1,0 +1,29 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrant configuration
+# https://www.vagrantup.com/docs/
+Vagrant.configure(2) do |config|
+
+  # Name our VM "sample-university"
+  # https://www.vagrantup.com/docs/multi-machine/
+  config.vm.define "sample-university", primary: true do |config|
+
+    # config.ssh
+    # https://www.vagrantup.com/docs/vagrantfile/ssh_settings.html
+
+    # Forward X11 over SSH (allows us to run GUI applications on the VM)
+    config.ssh.forward_x11 = true
+
+    # config.vm
+    # https://www.vagrantup.com/docs/vagrantfile/machine_settings.html
+
+    # Using Oracle Linux 7.0
+    # https://atlas.hashicorp.com/mleonard87/boxes/oracle-linux-70-uek-x64/
+    config.vm.box = "mleonard87/oracle-linux-70-uek-x64"
+
+    # Quit checking for updates all the time
+    config.vm.box_check_update = false
+  end
+end
+
