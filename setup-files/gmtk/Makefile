@@ -12,15 +12,6 @@ ifndef require
 
 # GMTK is not installed
 
-# Output informative message
-$(info This provisioning system requires GNU Make Toolkit (GMTK) to be installed on)
-$(info this computer.)
-$(info )
-$(info Enter `make install-gmtk` to install GMTK in the default directory)
-$(info (~/usr/local/gmtk/).)
-$(info )
-$(info For more information on GMTK, see https://github.com/jlapolla/gnu-make-toolkit.)
-
 # Define GMTK installation targets
 
 # Install GMTK in ~/usr/local/gmtk/
@@ -33,14 +24,24 @@ $(info For more information on GMTK, see https://github.com/jlapolla/gnu-make-to
 	mkdir -p ~/usr/local/bin/
 	ln -sf ~/usr/local/gmtk/bin/make ~/usr/local/bin/make
 
+# GMTK installation target (for convenience)
 .PHONY: install-gmtk
 install-gmtk: ~/usr/local/bin/make
 
-.PHONY: null
-null:
+# Help documentation
+.PHONY: help
+help:
+	$(info This provisioning system requires GNU Make Toolkit (GMTK) to be installed on)
+	$(info this computer.)
+	$(info )
+	$(info Enter `make install-gmtk` to install GMTK in the default directory)
+	$(info (~/usr/local/gmtk/).)
+	$(info )
+	$(info For more information on GMTK, see https://github.com/jlapolla/gnu-make-toolkit.)
+	@true
 
-# Do nothing, by default
-.DEFAULT_GOAL := null
+# Default to help documentation
+.DEFAULT_GOAL := help
 
 endif
 

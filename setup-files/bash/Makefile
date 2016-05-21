@@ -3,12 +3,13 @@ include helpdoc.mk
 # Template
 define $(d)template
 
-~/.bashrc: $(d).bashrc
+$(d).make/.bashrc: $(d).bashrc
 	cp $(d).bashrc ~/.bashrc
+	mkdir -p $(d).make/ && touch $(d).make/.bashrc
 
 .PHONY: $(d)all
 $(call helpdoc,$(d)all)
-$(d)all: ~/.bashrc
+$(d)all: $(d).make/.bashrc
 
 endef
 

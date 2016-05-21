@@ -14,7 +14,6 @@ else
 
 # List provisioning system submodules
 $(eval $(d)submodules := $(patsubst $(if $(d),$(d),./)%Makefile,%,$(shell find $(d) -mindepth 2 -maxdepth 2 -type f -name Makefile)))
-$(eval $(d)submodules := $(filter-out gmtk/,$(d)submodules))
 
 # Require provisioning system submodules
 include require.mk
@@ -25,9 +24,15 @@ include helpdoc.mk
 # Template
 define $(d)template
 
+# Define dummy install-gmtk target, so `make install-gmtk` will still be a
+# valid command. This allows us to run the provisioning script after GMTK is
+# installed (useful for debugging the provisioning system).
+.PHONY: $(d)install-gmtk
+$(d)install-gmtk:
+
 .PHONY: $(d)all
 $(call helpdoc,$(d)all)
-$(d)all: $(addsuffix all,$($(d)submodules))
+$(d)all: $(addsuffix all,$(filter-out gmtk/ yum/,$($(d)submodules)))
 
 endef
 
